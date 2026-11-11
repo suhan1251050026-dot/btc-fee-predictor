@@ -8,5 +8,5 @@ venv/
 .env.*
 CLAUDE.local.md
 .claude/settings.local.json
-output/
-data/raw/*.csv
+data/raw/blocks_synthetic.csv
+output/synthetic/

@@ -1,0 +1,140 @@
+{
+  "n_blocks": 2010,
+  "csv": "data/raw/blocks.csv",
+  "0_descriptive (Unit 1)": {
+    "tx_count": {
+      "n": 2005,
+      "mean": 4101.193516209476,
+      "median": 3605.0,
+      "sd": 2008.2417940206685,
+      "cv_percent": 48.967252729804954,
+      "min": 30.0,
+      "max": 11360.0
+    },
+    "size": {
+      "n": 2005,
+      "mean": 1703045.7820448878,
+      "median": 1644487.0,
+      "sd": 417162.8371744492,
+      "cv_percent": 24.495104099524077,
+      "min": 14632.0,
+      "max": 3972779.0
+    },
+    "avg_fee": {
+      "n": 2005,
+      "mean": 694.1414681180893,
+      "median": 584.3966789667896,
+      "sd": 729.2498966052273,
+      "cv_percent": 105.0578203579051,
+      "min": 12.912989847234083,
+      "max": 16678.338327370304
+    },
+    "log_avg_fee": {
+      "n": 2005,
+      "mean": 5.992319912979131,
+      "median": 6.370579997052029,
+      "sd": 1.210269871320356,
+      "cv_percent": 20.19701699668869,
+      "min": 2.5582337696204265,
+      "max": 9.721866050289018
+    }
+  },
+  "1_exponential (Unit 2)": {
+    "n_gaps": 2009,
+    "out_of_order_timestamps": 61,
+    "zero_gaps": 2,
+    "mean_gap_s": 637.1413638626182,
+    "sd_gap_s": 649.8212832201083,
+    "sd_over_mean": 1.01990126536538,
+    "lambda_per_s": 0.0015695104049399345,
+    "p_wait_over_20min_model": 0.1520702816189748,
+    "p_wait_over_20min_real": 0.1483325037332006,
+    "ks_statistic": 0.019120042759715572,
+    "ks_p_value": 0.4492260401688095
+  },
+  "2_poisson (Unit 2)": {
+    "n_hours": 355,
+    "lambda_blocks_per_hour": 5.642253521126761,
+    "variance": 5.450751969443782,
+    "dispersion_var_over_mean": 0.9660593854980242,
+    "p_10_or_more_model": 0.06149201361000034,
+    "p_10_or_more_real": 0.04788732394366197,
+    "chi2": 11.282026563070874,
+    "chi2_df": 9,
+    "chi2_p_value": 0.25687175089256525,
+    "bins_after_merge": 11
+  },
+  "3_regression (Unit 4)": {
+    "raw_fee": {
+      "n": 2005,
+      "intercept_a": 1487.9435821923898,
+      "slope_b": -0.19355392788389356,
+      "correlation_r": -0.5330176791011851,
+      "r_squared": 0.284107846234414,
+      "std_error_of_estimate": 617.1753349876807
+    },
+    "log_fee": {
+      "n": 2005,
+      "intercept_a": 8.047968726019953,
+      "slope_b": -0.0005012318499276164,
+      "correlation_r": -0.8317109872534302,
+      "r_squared": 0.6917431663180755,
+      "std_error_of_estimate": 0.6721202225938507,
+      "check_scipy_slope_diff": 1.0842021724855044e-19,
+      "slope_p_value": 0.0
+    }
+  },
+  "4_anova (Unit 4)": {
+    "k_groups": 4,
+    "n": 2005,
+    "ss_between": 148.2042237448722,
+    "ss_within": 2787.161111752412,
+    "df_between": 3,
+    "df_within": 2001,
+    "F": 35.46699070283632,
+    "p_value": 2.494650961746325e-22,
+    "check_scipy_F_diff": 3.552713678800501e-14,
+    "kruskal_H": 103.65163607139039,
+    "kruskal_p_value": 2.5479580741452098e-22,
+    "slot_means_log_fee": {
+      "night (00-05 UTC)": 5.623891654465014,
+      "morning (06-11 UTC)": 5.958199615885451,
+      "afternoon (12-17 UTC)": 6.406293243659136,
+      "evening (18-23 UTC)": 6.034218414667402
+    },
+    "slot_counts": {
+      "night (00-05 UTC)": 515,
+      "morning (06-11 UTC)": 518,
+      "afternoon (12-17 UTC)": 448,
+      "evening (18-23 UTC)": 524
+    }
+  },
+  "5_confidence_interval (Unit 4)": {
+    "raw_fee": {
+      "n": 2005,
+      "mean": 694.1414681180892,
+      "sd": 729.2498966052273,
+      "std_error": 16.286178398638725,
+      "t_critical": 1.961148455747316,
+      "margin": 31.939613616515633,
+      "lower": 662.2018545015735,
+      "upper": 726.0810817346048,
+      "confidence": 0.95,
+      "check_scipy_lower_diff": 0.0
+    },
+    "log_fee": {
+      "n": 2005,
+      "mean": 5.992319912979132,
+      "sd": 1.2102698713203557,
+      "std_error": 0.027028692258411164,
+      "t_critical": 1.961148455747316,
+      "margin": 0.053007278083452486,
+      "lower": 5.939312634895679,
+      "upper": 6.045327191062584,
+      "confidence": 0.95,
+      "geometric_mean_fee": 400.3422927203454,
+      "geometric_lower": 379.67386525918124,
+      "geometric_upper": 422.13585396817615
+    }
+  }
+}

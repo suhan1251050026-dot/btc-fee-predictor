@@ -1,0 +1,9 @@
+,raw_fee,log_fee
+n,2005.0,2005.0
+intercept_a,1487.943582,8.047969
+slope_b,-0.193554,-0.000501
+correlation_r,-0.533018,-0.831711
+r_squared,0.284108,0.691743
+std_error_of_estimate,617.175335,0.67212
+check_scipy_slope_diff,,0.0
+slope_p_value,,0.0

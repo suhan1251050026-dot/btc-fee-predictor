@@ -11,5 +11,5 @@
 - Timestamps out of order by height: 61. The exponential step sorts the timestamps (see `docs/explanations/01_exponential.md`).
 - Gaps of exactly 0 seconds after sorting: 2
 - Fee unit: satoshi (1 BTC = 100,000,000 satoshi). `avg_fee` = total fee of the block / number of transactions.
-- Special events in this period: ____ (check the news for 27 Oct to 11 Nov 2026 before the report)
-- Collection machine and connection: ____ (fill in)
+- Special events in this period: None known
+- Collection machine and connection: Windows Laptop, Home Wi-fi,Pune 

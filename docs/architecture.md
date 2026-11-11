@@ -7,6 +7,8 @@ collect.py ──► data/raw/blocks.csv ──► analyze.py ──► output/ 
         ▼               ▼                 ▼                 ▼                  ▼
   exp_gaps.py   poisson_counts.py   regression.py    anova_slots.py   conf_interval.py
   (Unit 2)      (Unit 2)            (Unit 4)         (Unit 4)         (Unit 4)
+
+  describe.py (Unit 1) runs first. common.py has the shared loader. synth.py makes fake data for practice.
 ```
 
 - `src/collect.py`: downloads consecutive Bitcoin blocks and writes one CSV.

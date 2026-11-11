@@ -6,13 +6,15 @@ Runs on Windows (PowerShell) in VS Code. Code must be simple and explainable.
 
 ## Commands
 - Install: `pip install -r requirements.txt`
-- Collect data: `python -m src.collect`
-- Run all analysis: `python -m src.analyze`
+- Collect data: `python -m src.collect --count 2000` (needs internet; run on the PC)
+- Fake data for practice: `python -m src.synth` (never use it in the report)
+- Run all analysis: `python -m src.analyze` (or `--csv <file> --out <dir>`)
 - Test one file: `python -m pytest tests/test_<name>.py -q`
 - Test all: `python -m pytest tests -q`
 - Lint + format check before every commit: `python -m ruff check . ; python -m ruff format --check .`
 
-## The 5 syllabus topics (each is one module in `src/`)
+## The 5 syllabus topics (each is one module in `src/`; `src/describe.py` is the Unit 1 step)
+Viva sheets for each topic: `docs/explanations/`. Team split: `docs/explanations/00_team_split.md`.
 1. Exponential: gaps between block timestamps (`src/exp_gaps.py`)
 2. Poisson: blocks per hour (`src/poisson_counts.py`)
 3. Regression + standard error of estimate: `avg_fee` vs `tx_count` (`src/regression.py`)

@@ -9,6 +9,7 @@ Runs on Windows (PowerShell) in VS Code. Code must be simple and explainable.
 - Collect data: `python -m src.collect --count 2000` (needs internet; run on the PC)
 - Fake data for practice: `python -m src.synth` (never use it in the report)
 - Run all analysis: `python -m src.analyze` (or `--csv <file> --out <dir>`)
+- Interactive app: `python -m streamlit run app.py` (opens http://localhost:8501)
 - Test one file: `python -m pytest tests/test_<name>.py -q`
 - Test all: `python -m pytest tests -q`
 - Lint + format check before every commit: `python -m ruff check . ; python -m ruff format --check .`

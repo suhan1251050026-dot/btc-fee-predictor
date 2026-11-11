@@ -44,3 +44,15 @@ If the marks are for each student, Member A can pick one of the two topics and M
 
 `python -m src.synth` makes FAKE data with a known truth. `python -m src.analyze --csv data/raw/blocks_synthetic.csv --out output/synthetic` runs on it.
 Use it to practise. **Never put synthetic results in the report.**
+
+## Interactive app (for the class demo)
+
+`python -m streamlit run app.py` opens the app in the browser at http://localhost:8501.
+It has one tab for each topic. Each member demonstrates the own tab:
+
+| Member | Tab | What to show live |
+|---|---|---|
+| A | Exponential, Poisson | Move the t slider. Open the memoryless test. Move the k slider. |
+| B | Regression | Type a transaction count. Open "Why is the slope negative?". |
+| C | ANOVA | Change α. Switch the labels from UTC to India time. |
+| D | Overview, Confidence interval | Toggle the log fee. Change the confidence level. Run the 100-sample experiment with n = 10, then n = 300. |

@@ -5,3 +5,4 @@ scipy
 matplotlib
 pytest
 ruff
+streamlit>=1.50

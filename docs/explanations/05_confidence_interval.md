@@ -46,16 +46,35 @@ A sample of `n = 25` has mean 50 and standard deviation 10.
 - **Link to the CLT (central limit theorem):** the sample mean is close to normal for a large sample, even if the data is skewed. With about 2,000 blocks, the interval is reliable.
 - **Unit 1 step (`src/describe.py`):** mean, median, SD, and coefficient of variation (CV = SD / mean × 100), plus a histogram and a box plot. The mean is larger than the median for skewed data. This is why we use the log.
 
-**Our result (fill after the real run; keys under `5_confidence_interval (Unit 4)` → `raw_fee`):**
+**Unit 1 result (descriptive statistics, real data, 2,005 blocks):**
 
-| Item | Value |
-|---|---|
-| Sample size | `n` = ____ |
-| Mean fee, SD | `mean` = ____, `sd` = ____ |
-| Standard error | `std_error` = ____ |
-| t critical value | `t_critical` = ____ |
-| 95% interval | `lower` = ____ to `upper` = ____ |
-| Geometric mean interval (log model) | `geometric_lower` = ____ to `geometric_upper` = ____ |
+| Variable | Mean | Median | SD | CV | Min | Max |
+|---|---|---|---|---|---|---|
+| Transactions per block | 4,101 | 3,605 | 2,008 | 49% | 30 | 11,360 |
+| Block size (bytes) | 1,703,046 | 1,644,487 | 417,163 | 24% | 14,632 | 3,972,779 |
+| Average fee (satoshi) | **694** | **584** | 729 | **105%** | 13 | 16,678 |
+
+- The fee mean (694) is above the median (584). The maximum (16,678) is 24 times the mean. The fee is **right-skewed**.
+- The CV of the fee is 105%. The SD is larger than the mean. The fee varies a lot.
+- This is why the other topics use the log of the fee.
+
+**Confidence interval result:**
+
+| Item | Raw fee | Log fee (back to satoshi) |
+|---|---|---|
+| Sample size `n` | 2,005 | 2,005 |
+| Mean | **694.1 satoshi** | 5.992 (geometric mean **400 satoshi**) |
+| SD | 729.2 | 1.210 |
+| Standard error `s / √n` | 16.29 | 0.0270 |
+| t critical (df = 2,004) | 1.961 | 1.961 |
+| Margin | 31.94 | 0.0530 |
+| **95% interval** | **662.2 to 726.1 satoshi** | **380 to 422 satoshi** (geometric mean) |
+
+**What we say:**
+- "We are 95% confident that the true mean fee per transaction in this period is between 662 and 726 satoshi."
+- The t value (1.961) is almost equal to z (1.96), because `n` is large.
+- The geometric mean (400) is much lower than the arithmetic mean (694). A few very expensive blocks pull the arithmetic mean up.
+- The interval is narrow (±32 satoshi, about ±4.6%) because the sample is large. By the CLT, the sample mean is close to normal, even though the fee data is skewed.
 
 Charts: `output/confidence_interval.png`, `output/hist_fee.png`, `output/box_fee.png`. Table: `output/descriptive.csv`.
 

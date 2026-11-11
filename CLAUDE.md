@@ -38,6 +38,7 @@ Viva sheets for each topic: `docs/explanations/`. Team split: `docs/explanations
 
 ## Gotchas
 - Public block APIs have rate limits. Use a pause between requests and cache to CSV.
+- Block timestamps can be out of order. `exp_gaps.block_gaps` sorts them. Never drop negative gaps (biases the mean).
 - Fee data is skewed. Use the log fee for regression and ANOVA. Run Kruskal-Wallis as a second check.
 - Nearby blocks are not fully independent. Write this limit in the report.
 - `git push` always needs the user to confirm. Say "this pushes to GitHub" before the command.

@@ -40,18 +40,27 @@ A call centre gets 6 calls per hour on average (`λ = 6`).
   - Rule: each expected count must be 5 or more. We merge small bins (`merge_bins`).
   - Degrees of freedom = bins − 1 − 1. We lose one more degree because we estimated `λ` from the data.
 
-**Our result (fill after the real run; keys under `2_poisson (Unit 2)`):**
+**Our result (real data: 2,010 blocks, 27 Oct to 11 Nov 2026):**
 
 | Item | Value |
 |---|---|
-| Number of hours | `n_hours` = ____ |
-| Lambda (blocks per hour) | `lambda_blocks_per_hour` = ____ |
-| Variance / mean | `dispersion_var_over_mean` = ____ (near 1 supports the model) |
-| P(10 or more), model | `p_10_or_more_model` = ____ |
-| P(10 or more), real | `p_10_or_more_real` = ____ |
-| Chi-square, df, p-value | `chi2` = ____, `chi2_df` = ____, `chi2_p_value` = ____ |
+| Number of full hours | 355 |
+| Lambda (mean blocks per hour) | **5.64** |
+| Variance | 5.45 |
+| Variance / mean | **0.97** (near 1 supports the model) |
+| P(10 or more blocks), model | **0.062** (6.1%) |
+| P(10 or more blocks), real | **0.048** (4.8%) |
+| Chi-square | 11.28, with **df = 9** (11 bins after merging) |
+| Chi-square p-value | **0.257** |
 
-Chart: `output/poisson_counts.png`.
+**What we say:**
+- The variance (5.45) is almost equal to the mean (5.64). This is the "fingerprint" of the Poisson distribution.
+- The chi-square p-value is 0.257, above 0.05. We have no evidence against the Poisson model.
+- The model says about 6% of hours have 10 or more blocks. The real share is about 5%. The model slightly over-predicts busy hours.
+- The theoretical rate is 6 blocks per hour (one every 10 minutes). Our 5.64 is a little lower, because blocks came slightly slower in this period.
+- **Cross-check with the exponential:** the mean gap is 637 s, and 3600 / 637 = 5.65. The two topics agree.
+
+Chart: `output/poisson_counts.png`. The real bars and the Poisson bars have almost the same shape.
 
 ## 6. Limits (say them in the viva)
 
@@ -66,4 +75,5 @@ Chart: `output/poisson_counts.png`.
 3. **Why do we merge bins?** The chi-square test needs an expected count of 5 or more in each bin.
 4. **Why is df = bins − 2?** One degree is lost for the total count. One more is lost because we estimated `λ`.
 5. **How are Poisson and exponential linked?** Exponential gaps give Poisson counts. Both come from the same random process.
-6. **What if the variance is much larger than the mean?** The events are clustered or the rate changes. Poisson is a poor fit. We report this.
+6. **What if the variance is much larger than the mean?** The events are clustered or the rate changes. Poisson is a poor fit. Our ratio is 0.97, so this did not happen.
+7. **Why 11 bins and df = 9?** We merged the rare high counts so that each expected count is 5 or more. Then df = 11 − 1 − 1 = 9.

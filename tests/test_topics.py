@@ -33,10 +33,13 @@ def test_exp_survival_known_values():
     assert exp_gaps.exp_cdf(300, 600) == pytest.approx(1 - math.exp(-0.5))
 
 
-def test_block_gaps_drops_nonpositive():
-    gaps, dropped = exp_gaps.block_gaps([0, 600, 1200, 1190, 1800])
-    assert list(gaps) == [600, 600, 610]
-    assert dropped == 1
+def test_block_gaps_sorts_out_of_order_times():
+    # Block 4 has a time 10 s before block 3. Sorting fixes the order.
+    gaps, out_of_order = exp_gaps.block_gaps([0, 600, 1200, 1190, 1800])
+    assert list(gaps) == [600, 590, 10, 600]
+    assert out_of_order == 1
+    # The mean gap equals the total span divided by the number of gaps.
+    assert gaps.mean() == pytest.approx(1800 / 4)
 
 
 def test_exp_recovers_mean_on_synthetic():

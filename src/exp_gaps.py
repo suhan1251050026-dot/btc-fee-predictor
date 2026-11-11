@@ -14,15 +14,18 @@ from src.common import ensure_dir, sample_sd
 
 
 def block_gaps(timestamps):
-    """Gaps in seconds between consecutive blocks (blocks sorted by height).
+    """Gaps in seconds between blocks, taken in TIME order.
 
-    Bitcoin timestamps can be slightly out of order. Gaps of 0 or less are dropped.
-    Returns (positive_gaps, number_dropped).
+    Miners set the timestamps, so a few blocks are out of order by height.
+    Dropping the negative gaps would keep their too-long neighbours and push the mean up.
+    So we sort the timestamps first. Then no gap is negative, and the mean gap
+    equals (last time - first time) / (number of blocks - 1).
+    Returns (gaps, number_out_of_order_in_height_order).
     """
     ts = np.asarray(timestamps, dtype=float)
-    gaps = np.diff(ts)
-    keep = gaps > 0
-    return gaps[keep], int((~keep).sum())
+    out_of_order = int((np.diff(ts) < 0).sum())
+    gaps = np.diff(np.sort(ts))
+    return gaps, out_of_order
 
 
 def exp_survival(t, mean_gap):
@@ -37,7 +40,7 @@ def exp_cdf(t, mean_gap):
 
 def run(df, out_dir, long_wait_seconds=1200):
     out = ensure_dir(out_dir)
-    gaps, dropped = block_gaps(df["timestamp"].to_numpy())
+    gaps, out_of_order = block_gaps(df["timestamp"].to_numpy())
     mean_gap = float(gaps.mean())
     sd_gap = sample_sd(gaps)
     lam = 1 / mean_gap
@@ -45,7 +48,8 @@ def run(df, out_dir, long_wait_seconds=1200):
     ks_stat, ks_p = stats.kstest(gaps, "expon", args=(0, mean_gap))
     result = {
         "n_gaps": len(gaps),
-        "dropped_nonpositive_gaps": dropped,
+        "out_of_order_timestamps": out_of_order,
+        "zero_gaps": int((gaps == 0).sum()),
         "mean_gap_s": mean_gap,
         "sd_gap_s": sd_gap,
         "sd_over_mean": sd_gap / mean_gap,  # about 1 for an exponential model

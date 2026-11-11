@@ -34,27 +34,39 @@ A bus arrives on average every 10 minutes. Then `λ = 0.1` per minute.
 Bitcoin miners run a lottery. Each try has a tiny, equal chance to win. The lottery has no memory.
 So the time between two blocks is close to exponential. The network keeps the mean near 10 minutes (600 s).
 
-- Data: gaps between block timestamps, in seconds (`block_gaps`).
+- Data: gaps between block timestamps, in seconds (`block_gaps`). We sort the timestamps first (see Limits).
 - We compute `λ = 1 / mean gap` and `P(gap > 20 min)` by hand.
 - We compare with the real share of long gaps.
 - We run the Kolmogorov-Smirnov test (`scipy.stats.kstest`) as a formal check.
 
-**Our result (fill after the real run; keys in `output/summary.json` under `1_exponential (Unit 2)`):**
+**Our result (real data: 2,010 blocks, 27 Oct to 11 Nov 2026):**
 
 | Item | Value |
 |---|---|
-| Number of gaps | `n_gaps` = ____ |
-| Mean gap (s) | `mean_gap_s` = ____ |
-| SD / mean | `sd_over_mean` = ____ (near 1 supports the model) |
-| P(wait > 20 min), model | `p_wait_over_20min_model` = ____ |
-| P(wait > 20 min), real | `p_wait_over_20min_real` = ____ |
-| KS test p-value | `ks_p_value` = ____ (below 0.05 means a poor fit) |
+| Number of gaps | 2,009 |
+| Mean gap | **637 s** (10.6 min) |
+| SD of gaps | 650 s |
+| SD / mean | **1.02** (near 1 supports the model) |
+| Rate `λ` | 0.00157 per second (5.65 per hour) |
+| P(wait > 20 min), model | **0.152** (15.2%) |
+| P(wait > 20 min), real | **0.148** (14.8%) |
+| KS test p-value | **0.449** |
 
-Chart: `output/exp_gaps.png`. Read the result honestly. A poor fit is a valid finding.
+**What we say:**
+- The SD is almost equal to the mean. This is the "fingerprint" of the exponential distribution.
+- The model predicts 15.2% of waits longer than 20 minutes. The real share is 14.8%. They are very close.
+- The KS p-value is 0.449, far above 0.05. We have no evidence against the exponential model.
+- The mean gap is 637 s, slightly above the 600 s target. The difficulty adjusts only every 2,016 blocks, so the real mean can drift a little from the target.
+- **Cross-check with Poisson:** 3600 / 637 = 5.65 blocks per hour. The Poisson step found λ = 5.64. The two topics agree.
+
+Chart: `output/exp_gaps.png`. The red exponential curve follows the bars closely.
 
 ## 6. Limits (say them in the viva)
 
-- Miners set the timestamps. They can be a little wrong or out of order. We drop gaps of 0 or less and report how many.
+- Miners set the timestamps. In our data, 61 blocks have a time earlier than the block before them.
+  Our first version dropped these negative gaps. This kept their too-long neighbours and gave a wrong mean of 661 s.
+  We found the error because the Poisson step gave 5.64 blocks per hour (3600 / 5.64 = 638 s).
+  The fix: sort the timestamps first. Now the mean gap is 637 s, and both topics agree. This is a good viva story.
 - The network hash rate changes. So the true rate `λ` is not exactly constant.
 - The difficulty adjusts every 2,016 blocks. This can change the mean gap between periods.
 - The KS test is not exact when we estimate the mean from the same data. Treat the p-value as a guide.
@@ -66,4 +78,5 @@ Chart: `output/exp_gaps.png`. Read the result honestly. A poor fit is a valid fi
 3. **Why is block time exponential?** Mining is a lottery with no memory. Each try has the same tiny chance.
 4. **Why not Ethereum?** Ethereum has a fixed 12-second slot. The gaps are almost constant, not random.
 5. **Link to Poisson?** The gaps are exponential. The count of blocks in one hour is Poisson. Same process, two views.
-6. **What does a small KS p-value say?** The data does not follow the exponential model well. We report it and explain why.
+6. **What does a small KS p-value say?** The data does not follow the exponential model well. Our p-value is 0.449, so the fit is good.
+7. **Why did you sort the timestamps?** Some miner clocks are wrong. Dropping negative gaps biased the mean up to 661 s. Sorting gives the correct mean of 637 s. It agrees with the Poisson result.

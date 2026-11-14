@@ -6,3 +6,7 @@ matplotlib
 pytest
 ruff
 streamlit>=1.50
+
+fastapi
+uvicorn
+httpx

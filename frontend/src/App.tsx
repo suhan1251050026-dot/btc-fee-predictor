@@ -29,8 +29,8 @@ export default function App() {
       <nav className={`nav ${scrolled ? "scrolled" : ""}`} aria-label="Main">
         <div className="wrap nav-in">
           <a className="logo" href="#top">
-            <span className="logo-mark" aria-hidden />
-            <span>Fee Predictor<small>MM0501 · VIT Pune</small></span>
+            <img className="logo-mark" src="/satoscope-logo.png" alt="" />
+            <span>Satoscope<small>MM0501 · VIT Pune</small></span>
           </a>
           <div className="nav-links">
             <a href="#predict">Predict</a>
@@ -266,7 +266,10 @@ function Footer({ ov }: { ov?: Overview }) {
   return (
     <footer className="foot" id="about">
       <div className="wrap">
-        <div className="foot-word">Bitcoin Fee Predictor</div>
+        <div className="foot-word">
+          <img className="foot-logo" src="/satoscope-logo.png" alt="" />
+          Satoscope
+        </div>
         <div className="foot-grid">
           <div>
             <h5>The project</h5>

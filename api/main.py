@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "frontend" / "dist"
 Dataset = Literal["real", "synthetic"]
 
-app = FastAPI(title="BTC Fee Predictor API", version="2.0")
+app = FastAPI(title="Satoscope API", version="2.0")
 
 
 @app.exception_handler(service.DataMissing)
